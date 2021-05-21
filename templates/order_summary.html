@@ -1,0 +1,82 @@
+{% extends 'base.html' %} {% block content %}
+
+<main class="mt-5">
+  <div class="container">
+    <section class="text-center mb-4">
+      <h1>Order</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Item title</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Total item price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for oder_item in order.items.all %}
+          <tr>
+            <td scope="row" style="height:100px;width:100px">
+              <div class="cart mt-3" style="height:100px;width:100px">
+                <img
+                  style="height:100px;width:100px"
+                  class="cart-img rounded ml-4 mb-3"
+                  src="{{oder_item.item.image.url}}"
+                  alt=""
+                />
+              </div>
+            </td>
+            <td>{{oder_item.item.title}}</td>
+            <td>
+            <a href="{{oder_item.item.get_remove_single_from_cart_url}}" id="minus" class="btn btn-outline px-3 rounded mr-0 ml-0"><i class="fas fa-minus" aria-hidden="true"></i></a>
+            {{oder_item.quantity}}
+            <a href="{{oder_item.item.get_add_to_cart_url}}" id="plus" class="btn btn-outline px-3 rounded ml-0 pl-0"><i class="fas fa-plus" aria-hidden="true"></i></a>
+            </td>
+            {% if oder_item.item.discount_price %}
+            <td>{{oder_item.item.discount_price}}</td>
+            {% else %}
+            <td>{{oder_item.item.price}}</td>
+            {% endif %}
+            <td>
+              {{oder_item.get_item_final_price}} 
+              {% if oder_item.item.discount_price %} ({{oder_item.get_amount_saved}})
+              {% endif %}
+            </td>
+            <td>
+            <a class="text-muted" href="{{oder_item.item.get_remove_from_cart_url}}">
+                  <span><i class="fas fa-trash-alt text-muted mr-1"></i></span>
+                </a>
+            </td>
+          </tr>
+
+          {% empty %}
+          <tr>
+          <td colspan="5">
+            <a href="{% url 'home' %}" class="btn btn-primary btn-md waves-effect m-0 float-right"  >continue shopping</a>
+          </td>
+          </tr>
+          {% endfor %}
+          {% if order.get_total %}
+
+          <tr>
+          <td colspan="4">
+            <h4>Order Total</h4>
+          </td>
+          <td colspan="1">
+            {{order.get_total}}
+          </td>
+          </tr>
+
+          {% endif %}
+          <td colspan="5">
+            <a href="{% url 'checkout' %}" class="btn btn-primary btn-md waves-effect m-0 float-right"  >Checkout</a>
+          </td>
+        </tbody>
+
+      </table>
+      
+    </section>
+  </div>
+</main>
+{% endblock content %}

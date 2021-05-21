@@ -1,0 +1,188 @@
+/* Required height of parents of the Half Page Carousel for proper displaying carousel itself */
+html,
+body,
+.view {
+  height: 100%; }
+
+/* Half Page Carousel itself*/
+.carousel {
+  height: 50%; }
+  .carousel .carousel-inner {
+    height: 100%; }
+    .carousel .carousel-inner .carousel-item,
+    .carousel .carousel-inner .active {
+      height: 100%; }
+
+/* Adjustment for mobile devices*/
+@media (max-width: 776px) {
+  .carousel {
+    height: 100%; } }
+
+/* Footer color for sake of consistency with Navbar */
+.page-footer {
+  background-color: #929FBA; }
+
+
+  html,
+  body,
+  header,
+  .carousel {
+    height: 60vh;
+  }
+
+  @media (max-width: 740px) {
+    html,
+    body,
+    header,
+    .carousel {
+      height: 100vh;
+    }
+  }
+
+  @media (min-width: 800px) and (max-width: 850px) {
+    html,
+    body,
+    header,
+    .carousel {
+      height: 100vh;
+    }
+  }
+
+  .label {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    z-index: 2;
+  }
+  .label-right {
+    position: absolute;
+    background-color: rgba(240, 240, 100, 0.842) !important;
+    color: black !important;
+    right: 20px;
+    top: 20px;
+    z-index: 2;
+  }
+  .badge-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 25px;
+    width: 38px;
+    background-color: rgba(199, 207, 81, 0.884);
+    z-index: 2;
+    transition: 0.5s;
+  }
+  .cat-img {
+    width: 293px;
+    height: 193px;
+    transition: 0.5s;
+    object-fit: inherit;
+    overflow: hidden;
+  }
+  .categories,
+  .best-sellers,
+  .latest {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+  .categories img {
+    margin-bottom: 40px;
+    transition: 0.5s;
+  }
+  .cat-image {
+    position: relative;
+    width: 293px;
+    height: 193px;
+    margin-bottom: 40px;
+  }
+  .categories .cat-image h3 {
+    position: absolute;
+    color: white;
+    font-weight: 400;
+    bottom: 0;
+    right: 10px;
+    z-index: 2;
+  }
+
+  .label{
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    z-index: 2;
+  }
+  .label-right{
+    position: absolute;
+    background-color: rgba(240, 240, 100, 0.842) !important;
+    color: black !important;
+    right: 20px;
+    top: 20px;
+    z-index: 2;
+  }
+  .badge-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height:25px;
+    width: 38px;
+    background-color: rgba(199, 207, 81, 0.884);
+    z-index: 2;
+    transition: 0.5s;
+  }
+  .cat-image{
+    position: relative;
+    width: 293px;
+    height: 193px;
+    margin-bottom: 40px;
+  }
+  .categories .cat-image h3{
+    position: absolute;
+    color: white;
+    font-weight: 400;
+    bottom: 0;
+    right: 10px;
+    z-index: 2;
+  }
+
+  .label{
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    z-index: 2;
+  }
+  .label-right{
+    position: absolute;
+    background-color: rgba(240, 240, 100, 0.842) !important;
+    color: black !important;
+    right: 20px;
+    top: 20px;
+    z-index: 2;
+  }
+  .badge-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height:25px;
+    width: 38px;
+    background-color: rgba(199, 207, 81, 0.884);
+    z-index: 2;
+    transition: 0.5s;
+  }
+  .cat-image{
+    position: relative;
+    width: 293px;
+    height: 193px;
+    margin-bottom: 40px;
+  }
+  .categories .cat-image h3{
+    position: absolute;
+    color: white;
+    font-weight: 400;
+    bottom: 0;
+    right: 10px;
+    z-index: 2;
+  }
+.img-review{
+  width: 100px;
+  height: 100px;
+}
