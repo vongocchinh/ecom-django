@@ -10,17 +10,21 @@ PAYMENT_CHOICES = (
 )
 
 
-class AddressForm(forms.Form):
-    street_address = forms.CharField(required=False)
-    apartment_address = forms.CharField(required=False)
+class CheckoutForm(forms.Form):
+    address = forms.CharField(required=False)
+    name = forms.CharField(required=False)
+    phone = forms.CharField(required=False)
+    email = forms.CharField(required=False)
+
+    # apartment_address = forms.CharField(required=False)
     country = CountryField(blank_label='Select country').formfield(widget=CountrySelectWidget(attrs={
         'class': "custom-select d-block w-100",
     }))
     zip = forms.CharField(required=False)
-    save_info = forms.BooleanField(required=False)
-    use_default = forms.BooleanField(required=False)
-    payment_option = forms.ChoiceField(
-        widget=forms.RadioSelect(), choices=PAYMENT_CHOICES)
+    # save_info = forms.BooleanField(required=False)
+    # use_default = forms.BooleanField(required=False)
+    # payment_option = forms.ChoiceField(
+    #     widget=forms.RadioSelect(), choices=PAYMENT_CHOICES)
 
 
 class ReviewForm(forms.Form):

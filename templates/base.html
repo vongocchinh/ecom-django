@@ -9,7 +9,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <link rel="shortcut icon" href="{% static 'react.svg' %}" type="image/x-icon">
+    <!-- <link rel="shortcut icon" href="{% static 'react.svg' %}" type="image/x-icon"> -->
     <title>Butek's Online</title>
     <link
       rel="stylesheet"
@@ -27,7 +27,7 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark elegant-color scrolling-navbar">
 <div class="container">
   <a class="navbar-brand" href="{% url 'home' %}">
-    <strong>BUTEK'S ONLINE</strong>
+    <strong>PHONE ONLINE</strong>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
     aria-expanded="false" aria-label="Toggle navigation">
@@ -37,6 +37,12 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item ">
         <a class="nav-link" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link hover-brand">Brand</a>
+        <div class="container-brand-hover">
+
+        </div>
       </li>
     </ul>
     <ul class="navbar-nav nav-flex-icons">
@@ -50,6 +56,9 @@
         <a class="nav-link" href="{% url 'shop' %}">Shop</a>
       </li> {% endcomment %} 
       {%  if request.user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'Myaccount:profile' %}">Account</a>
+      </li> 
         <li class="nav-item">
             <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
           </li> 
@@ -89,57 +98,27 @@
 {% block content %}
 {% endblock content %}
 
-<footer class="page-footer font-small elegant-color-dark">
-  <div style="background-color: #1d1d1d;">
-    <div class="container">
-      <div class="row py-4 d-flex align-items-center">
-        <div
-          class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0"
-        >
-          <h6 class="mb-0">Get connected with us on social networks!</h6>
-        </div>
-        <div class="col-md-6 col-lg-7 text-center text-md-right">
-          <a class="fb-ic">
-            <i class="fab fa-facebook-f white-text mr-4"> </i>
-          </a>
-          <a class="tw-ic">
-            <i class="fab fa-twitter white-text mr-4"> </i>
-          </a>
-          <a class="gplus-ic">
-            <i class="fab fa-google-plus-g white-text mr-4"> </i>
-          </a>
-          <a class="li-ic">
-            <i class="fab fa-linkedin-in white-text mr-4"> </i>
-          </a>
-          <a class="ins-ic">
-            <i class="fab fa-instagram white-text"> </i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
+<footer class="page-footer font-small elegant-color">
 
-  <div class="container text-center text-md-left mt-5">
+  <div class="container text-center text-md-left mt-5 pt-5" >
     <div class="row mt-3">
-      <!-- Grid column -->
+     
       <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-        <!-- Content -->
         <h6 class="text-uppercase font-weight-bold">Butek's Online</h6>
         <hr
           class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
           style="width: 60px;"
         />
         <p>
-          We have it all...you shop online, we deliver at you doorstep.
+          Sản phẩm luôn đi đầu ở thị trường ,cấp nhật nhanh chóng.
           <br>
-          How shwayy is that 😉
+          Hân Hạnh Phục Vụ 😉
         </p>
       </div>
-      <!-- Grid column -->
+     
 
-      <!-- Grid column -->
+     
       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-        <!-- Links -->
         <h6 class="text-uppercase font-weight-bold">Products</h6>
         <hr
           class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
@@ -151,18 +130,11 @@
         <p>
           <a href="#!">New Products</a>
         </p>
-        <p>
-          <a href="#!">Most Rated</a>
-        </p>
-        <p>
-          <a href="#!">Essentials and Must-haves!</a>
-        </p>
       </div>
-      <!-- Grid column -->
+     
 
-      <!-- Grid column -->
+     
       <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-        <!-- Links -->
         <h6 class="text-uppercase font-weight-bold">Useful links</h6>
         <hr
           class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
@@ -171,35 +143,22 @@
         <p>
           <a href="#!">Your Profile</a>
         </p>
-        <p>
-          <a href="#!">Work with us</a>
-        </p>
-        <p>
-          <a href="#!">Shipping Rates</a>
-        </p>
-        <p>
-          <a href="#!">Help</a>
-        </p>
-        <p>
-          <a href="#!">FAQS</a>
-        </p>
       </div>
-      <!-- Grid column -->
+     
 
-      <!-- Grid column -->
+     
       <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-        <!-- Links -->
         <h6 class="text-uppercase font-weight-bold">Contact</h6>
         <hr
           class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
           style="width: 60px;"
         />
-        <p><i class="fas fa-home mr-3"></i>Kawangware Congo, Nairobi</p>
-        <p><i class="fas fa-envelope mr-3"></i> buteks@buteksonline.com</p>
+        <p><i class="fas fa-home mr-3"></i>Ton Duc Thang , Da Nang , Viet Nam</p>
+        <p><i class="fas fa-envelope mr-3"></i> Ngocchinh@gmail.com</p>
         <p><i class="fas fa-phone mr-3"></i> +254 234 567 88</p>
         <p><i class="fas fa-print mr-3"></i> +254 234 567 89</p>
       </div>
-      <!-- Grid column -->
+     
     </div>
     <!-- Grid row -->
   </div>

@@ -19,4 +19,6 @@ urlpatterns = [
     path('checkout/',views.CheckoutView.as_view(),name='checkout'),
     path ('addProductReview/<slug>', views.addProductReview, name = 'addProductReview'),
     path('add_productReview_success/<slug>',views.ProductDetail,name='add_productReview_success'),
+    path('checkout_success/',views.checkout_success,name='checkout_success'),
+    path('brand_search/<name>',views.Brand_search,name='brand_search')
 ]

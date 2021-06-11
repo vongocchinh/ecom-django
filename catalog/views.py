@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.urls import reverse
-
+from datetime import datetime
 # Create your views here.
 from django.conf import settings
 from django.http import JsonResponse
@@ -13,36 +13,22 @@ from django.contrib import messages
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, View
 from .models import (
-    Item, OrderItem, Order,Address,Category,ProductReview)
-from .forms import AddressForm,ReviewForm
+    Item, OrderItem, Order,Brand,ProductReview,Bills,BillsDetail)
+from .forms import CheckoutForm,ReviewForm
 class HomeView(ListView):
-    # model=Item
-    # template_name='index.html'
+
 
     def get(self, *args, **kwargs):
-        categories = Category.objects.all()[0:3]
-        item=Item.objects.all()[0:3]
-        shirts = Item.objects.filter(status="NEW")
-        # new_products = Item.objects.filter(category__name="New Products")
+        brand = Brand.objects.all()[0:5]
+        item=Item.objects.all()[0:]
+        shirts = Item.objects.filter(status='N')
         context = {
-            'categories': categories,
-            'product':item,
+            'brands': brand,
+            'products':item,
             'shirts': shirts,
             # 'new_products': new_products
         }
         return render(self.request, 'index.html', context)
-
-# class ProductDetail(DetailView):
-#     model=Item
-#     template_name='product.html'
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context.update({
-#             'items': Item.objects.all().order_by('id')[0:3],
-#             'review':ProductReview.objects.all()[0:3],
-#         })
-#         return context
-#     def get(self, *args, **kwargs):
 
 def ProductDetail(request, slug):
     items = get_object_or_404(Item, slug=slug)
@@ -75,7 +61,6 @@ def addProductReview(request, slug):
         'review':review
     }
     return HttpResponseRedirect(reverse('add_productReview_success', args=(slug,)))
-    # return render(request,'product.html',context)
 
 def home(request):
     return render(request,'index.html')
@@ -93,11 +78,9 @@ class CheckoutView(View):
     def get(self, *args, **kwargs):
         try:
             order = Order.objects.get(user=self.request.user, ordered=False)
-            # address = Address.objects.get(user=self.request.user,default=True)
-            form = AddressForm()
+            form = CheckoutForm()
             context={
                 'form':form,
-                # 'address':address,
                 'order': order,
             }
             return render(self.request,'checkout.html',context)
@@ -105,47 +88,64 @@ class CheckoutView(View):
             messages.info(self.request, "You don't have an active order")
             return redirect('order_summary')
     def post(self, *args, **kwargs):
-        order = Order.objects.get(user=self.request.user, ordered=False)
-        form = AddressForm(self.request.POST or None)
-        if form.is_valid():
-            street_address = form.cleaned_data.get('street_address')
-            apartment_address = form.cleaned_data.get('apartment_address')
-            country = form.cleaned_data.get('country')
-            zip = form.cleaned_data.get('zip')
-            use_default = form.cleaned_data.get('use_default')
-            payment_option=form.cleaned_data.get('payment_option')
-            save_info = form.cleaned_data.get('save_info')
-            address = Address(
-                user=self.request.user,
-                street_address=street_address,
-                apartment_address=apartment_address,
-                country=country,
-                zip=zip,
-                use_default=use_default,
-                payment_option=payment_option,
-                save_info=save_info
-            )
-            address.save()
-            # order.address = address
-            # order.save()
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            form = CheckoutForm(self.request.POST or None)
+            if form.is_valid():
+                address = form.cleaned_data.get('address')
+                name=form.cleaned_data.get('name')
+                phone=form.cleaned_data.get('phone')
+                email=form.cleaned_data.get('email')
+                country = form.cleaned_data.get('country')
+                zip = form.cleaned_data.get('zip')
+                bill=Bills(
+                    user=self.request.user,
+                    address=address,
+                    name=name,
+                    phone=phone,
+                    email=email,
+                    country=country,
+                    zip=zip,
+                    total=order.get_total(),
+                    quantity=order.get_quantity(),
+                    checkout_date=datetime.now()
+                )
 
-            if save_info:
-                address.default = True
-                address.save()
-            order.address = address
-            order.save()
+                bill.save()
+                for order_item in order.items.all() :
+                    item = get_object_or_404(Item, pk=order_item.item.id)
+                    billDetail = BillsDetail(
+                        user=self.request.user,
+                        bill=bill,
+                        item=item,
+                        quantity=order_item.quantity,
+                        total=order_item.get_item_final_price(),
+                    )
+                    billDetail.save()
+                order.ordered = True
+                order.save()
+                order.delete()
 
-            use_default = form.cleaned_data.get('use_default')
-            if use_default:
-                address_qs = Address.objects.get(user=self.request.user,default=True)
-                if address_qs.exists():
-                    address = address_qs[0]
-                    order.address = address
-                    order.save()
+
+                # order_item = OrderItem.getALl()
+                # order_item.delete()
+                # try :
+                #     order_item=OrderItem.objects.get(user=self.request.user, ordered=False)
+                #     order_item.item.ordered=True
+                #     order_item.item.delete()
+                #     order_item.save()
+                #     return redirect('checkout_success')
+                # except :
+                #     return redirect('checkout_success')
+                return redirect('checkout_success')
+            else :
+                return redirect('checkout')
+        except ObjectDoesNotExist:
             return redirect('checkout')
-        else :
-            return redirect('checkout')
 
+
+def checkout_success(request):
+    return render(request,'checkout_success.html')
 
 
 @login_required
@@ -232,11 +232,16 @@ def remove_from_cart(request, slug):
 
 class OrderSummaryView(LoginRequiredMixin,View):
     def get(self, *args, **kwargs):
-        order = Order.objects.get(user=self.request.user, ordered=False)
-        context={
-            'order':order
-        }
-        return render(self.request,'order_summary.html',context)
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            context={
+                'order':order
+            }
+            return render(self.request,'order_summary.html',context)
+        except ObjectDoesNotExist:
+            # order=None
+            return render(self.request,'order_summary.html')
+            # return False
 
 
 # class login_user(View):
@@ -244,3 +249,16 @@ class OrderSummaryView(LoginRequiredMixin,View):
 #         context={
 #         }
 #         return render(self.request,'account/login.html',context)
+
+
+
+
+def Brand_search(request,name):
+    brand=Brand.objects.get(name=name)
+    item = Item.objects.filter(brand=brand.id)
+    context = {
+
+        'products':item,
+
+    }
+    return render(request,'Brand.html',context)

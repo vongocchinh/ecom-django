@@ -1,0 +1,44 @@
+
+
+
+
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'main.css' %}" />
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'main.css' %}" />
+
+
+<main class="mb-4 mb-4-c">
+    <div class="container">
+      <section class="mt-5 wow fadeIn">
+        {% if products %}
+        <div class="row best-sellers">
+            {% for product in products %}
+            <div class="best-img" style="position: relative;width: 300px">
+              <h5>
+                <span class="label-right badge badge-primarys"
+                  >-{{product.discount_price}} %</span
+                >
+              </h5>
+              <a href="{% url 'product' product.slug %}" style="width: 100%;display: flex;justify-content: center;">
+                <img style="height:180px;width: 180px;" src="{{product.image.url}}" class="rounded-fluid" alt="" />
+              </a>
+              <h6 class="pl-5 mt-3"><b>{{product.title}}</b></h6>
+              <p class="rating text-center text-center-price mt-0">
+                <b style="font-weight: 450">${{product.get_item_final_price}}</b>
+                <del class="text-muted"><b>${{product.price}}</b></del>
+              </p>
+              <hr>  
+            </div>
+            {% endfor %}
+          </div>
+            {%  else %}
+            <h4 style="text-align: center;" class="mt-5">Không Có Sản Phẩm</h2>
+            {% endif %}
+      </section>
+    </div>
+</main>
+
+{% endblock content %}

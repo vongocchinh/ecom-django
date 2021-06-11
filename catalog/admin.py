@@ -2,24 +2,27 @@ from django.contrib import admin
 
 
 
-from .models import Item, Order, OrderItem,Address,Category,ProductReview
+from .models import Item, Order, OrderItem,Brand,ProductReview,Bills,BillsDetail
 
 class ItemAdmin(admin.ModelAdmin):
     prepopulated_fields={'slug':('title',)}
     list_display=[
         'title',
+        'id',
         'price',
         'discount_price'
     ]
 
-class AddressAdmin(admin.ModelAdmin):
-    list_display = ['user',
-                    'street_address',
-                    'apartment_address',
-                    'default',
-                    'country']
+# class AddressAdmin(admin.ModelAdmin):
+#     list_display = ['user',
+#                     'street_address',
+#                     'name',
+#                     'phone',
+#                     'email']
+class BillsAdmin(admin.ModelAdmin):
+    list_display=['id','name','phone','checkout_date']
 
-class CategoryAdmin(admin.ModelAdmin):
+class BrandAdmin(admin.ModelAdmin):
     # prepopulated_fields={'slug':('name',)}
     list_display=[
         'name'
@@ -34,9 +37,20 @@ class ProductReviewAdmin(admin.ModelAdmin):
             'email',
         ]
 
+
+class BillDetailAdmin(admin.ModelAdmin):
+    list_display=[
+        'id','user','bill','quantity','total'
+    ]
 admin.site.register(Item,ItemAdmin)
-admin.site.register(Address,AddressAdmin)
+# admin.site.register(Address,AddressAdmin)
 admin.site.register(Order)
 admin.site.register(OrderItem)
-admin.site.register(Category,CategoryAdmin)
+admin.site.register(Brand,BrandAdmin)
 admin.site.register(ProductReview,ProductReviewAdmin)
+
+
+admin.site.register(Bills,BillsAdmin)
+
+
+admin.site.register(BillsDetail)

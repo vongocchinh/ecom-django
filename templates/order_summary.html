@@ -34,7 +34,7 @@
             <a href="{{oder_item.item.get_add_to_cart_url}}" id="plus" class="btn btn-outline px-3 rounded ml-0 pl-0"><i class="fas fa-plus" aria-hidden="true"></i></a>
             </td>
             {% if oder_item.item.discount_price %}
-            <td>{{oder_item.item.discount_price}}</td>
+            <td>{{oder_item.item.get_item_final_price}}</td>
             {% else %}
             <td>{{oder_item.item.price}}</td>
             {% endif %}

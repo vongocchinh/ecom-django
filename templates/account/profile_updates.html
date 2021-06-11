@@ -1,0 +1,42 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% block content %}
+{% if user.is_authenticated %}
+<div style="width:100%;display: flex;justify-content: center;height: 400px;align-items: center;">
+   <div style="width:500px;height: auto;">
+      <div class="item-header-pro">
+         <a href="{% url 'Myaccount:profile_update' %}">Update Profile</a> | <a href="{% url 'account_change_password' %}">Change Password</a> |
+         <a href="{% url 'account_logout' %}">Logout</a>
+      </div>
+      {% endif %}
+      <h2>Update My Profile</h2>
+      <p>Welcome, {{ user.username }}.
+         {% if not user.profile.account_verified %}
+         (Unverified email.)
+         {% endif %}
+      </p>
+      <div class="form-wrapper">
+         <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+               <div class="fieldWrapper">
+            {{ field.errors }}
+            <div class="item-ip">
+               <p><strong>{{ field.label_tag }}</strong></p> <span>{{ field }}</span>
+            </div>
+            {% if field.help_text %}
+                  <p class="help">{{ field.help_text|safe }}</p>
+            {% endif %}
+               </div>
+            {% endfor %}
+            <div class="button-wrapper submit">
+               <input type="submit" value="Update" />
+            </div>
+         </form>
+      </div>
+   </div>
+   </div>
+
+{% endblock %}
+<!-- | <a href="{% url 'account_email' %}">Manage Email</a>   -->

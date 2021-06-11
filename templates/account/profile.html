@@ -1,10 +1,33 @@
 {% extends "account/base.html" %}
-{% load crispy_forms_tags %}
+
 {% load i18n %}
-
-{% block head_title %}{% trans "Signup" %}{% endblock %}
-
 {% block content %}
+{% if user.is_authenticated %}
+<div style="width:100%;display: flex;justify-content: center;height: 400px;align-items: center;">
+    <div style="width:500px;height: auto;">
+        <div class="item-header-pro">
+            <a  href="{% url 'Myaccount:profile_update' %}">Update Profile</a> | <a href="{% url 'account_change_password' %}">Change Password</a> |
+            <a href="{% url 'account_logout' %}">Logout</a>
+        </div>
+        {% endif %}
+
+        <h2>My Profile</h2>
+        <p>Welcome, {{ user.username }}.</p>
+        
+        
+       
+        
+        <div class="ul-pro">
+            <ul>
+                <li><strong>First Name:</strong> <span>{{ user.first_name }}</span> </li>
+                <li><strong>Last Name:</strong> <span>{{ user.last_name }}</span> </li>
+                <li><strong>Organization:</strong> <span>{{ user.profile.org }}</span> </li>
+                <li><strong>Telephone:</strong> <span>{{ user.profile.telephone }}</span> </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- | <a href="{% url 'account_email' %}">Manage Email</a>  | -->
 
 
 {% endblock %}

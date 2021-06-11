@@ -45,14 +45,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Myaccount',
     'django.contrib.sites',
-    
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'catalog',
     'crispy_forms',
     'django_countries',
+    'allauth.socialaccount.providers.weibo',
 ]
 
 SITE_ID = 1
@@ -66,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'ecom.urls'
 
@@ -147,6 +149,15 @@ CRISPY_TEMPLATE_PACK='bootstrap4'
 
 
 ACCOUNT_AUTHENTICATION_METHOD='username'
+
 ACCOUNT_EMAIL_REQUIRED =False
 
 ACCOUNT_EMAIL_VERIFICATION ='none'
+
+# LOGIN_REDIRECT_URL = "/accounts/profile/"
+
+
+
+LOGIN_REDIRECT_URL = "/accounts/profile/"
+
+ACCOUNT_SIGNUP_FORM_CLASS = 'Myaccount.forms.SignupForm'
