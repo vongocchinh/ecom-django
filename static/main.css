@@ -453,3 +453,42 @@ img.rounded-fluid-img{
   width: 300px;
   cursor: pointer;
 }
+.login{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.login-form{
+  width: 80%;
+}
+.login-form input{
+  width: 100%;
+}
+.primaryAction{
+  width: 80%;
+}
+.login-form a{
+  float: left;
+  text-align: left;
+}
+
+.reset-pass input{
+  width: 80%;
+  height: 35px;
+  padding-left: 15px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #6353B5;
+}
+.nuttonreset{
+  width: 75%;
+  background-color: #6353B5;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+}

@@ -5,27 +5,26 @@
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
-<div style="width:100%;display: flex;justify-content: center;height: 500px;align-items: center;">
-    <div style="width:700px;height: auto;">
-<main class="mt-5 pt-5">
-    <div class="container">
-        <section class="mb-4 col-md-6 col-6 offset-3">
-            <h1>{% trans "Sign Up" %}</h1>
 
-            <p>Already have an account? Then please <a href="{{ login_url }}">sign in</a>.</p>
+        <main class="mt-5 pt-0">
+            <div class="container">
+                <section class="mb-4 col-md-6 col-6 offset-3">
+                    <h1>{% trans "Sign Up" %}</h1>
 
-            <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-                {% csrf_token %}
-                {{ form|crispy }}
-                {% if redirect_field_value %}
-                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-                {% endif %}
-                <button class="btn btn-outline-info" type="submit">{% trans "Sign Up" %} &raquo;</button>
-            </form>
-        </section>
-    </div>
-</main>
-    </div>
-</div>
+                    <p>Already have an account? Then please <a href="{{ login_url }}">sign in</a>.</p>
+
+                    <form class=" login" id="signup_form" method="post" action="{% url 'account_signup' %}">
+                        {% csrf_token %}
+                    <div class="login-form">
+                        {{ form|crispy }}
+                    </div>
+                        {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                        {% endif %}
+                        <button class="btn primaryAction btn-outline-info" type="submit">{% trans "Sign Up" %} &raquo;</button>
+                    </form>
+                </section>
+            </div>
+        </main>
 
 {% endblock %}

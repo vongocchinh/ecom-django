@@ -7,7 +7,7 @@
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-<main class="mt-5 pt-5">
+<main class="mt-5 pt-0">
     <div class="container">
         <section class="mb-4 col-md-6 col-6 offset-3">
             <h1>{% trans "Sign In" %}</h1>
@@ -19,7 +19,7 @@
                 of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
                 for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
-            <div class="socialaccount_ballot">
+            <!-- <div class="socialaccount_ballot">
 
                 <ul class="socialaccount_providers">
                     {% include "socialaccount/snippets/provider_list.html" with process="login" %}
@@ -27,18 +27,20 @@
 
                 <div class="login-or">{% trans 'or' %}</div>
 
-            </div>
+            </div> -->
 
-            {% include "socialaccount/snippets/login_extra.html" %}
+            <!-- {% include "socialaccount/snippets/login_extra.html" %} -->
 
-            {% else %}
+            <!-- {% else %}
             <p>{% blocktrans %}If you have not created an account yet, then please
                 <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-            {% endif %}
+            {% endif %} -->
 
             <form class="login" method="POST" action="{% url 'account_login' %}">
                 {% csrf_token %}
-                {{ form|crispy }}
+                <div class="login-form">
+                    {{ form|crispy }}
+                </div>
                 {% if redirect_field_value %}
                 <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
                 {% endif %}
